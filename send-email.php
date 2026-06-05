@@ -1,52 +1,41 @@
 <?php
-ob_start();
 header('Content-Type: application/json');
 
-$email_to = 'lesterjohnpulanco@gmail.com';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $subject = trim($_POST['subject'] ?? 'New Message');
-    $message = trim($_POST['message'] ?? '');
+    $name = htmlspecialchars($_POST['name'] ?? '', ENT_QUOTES);
+    $email = htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES);
+    $subject = htmlspecialchars($_POST['subject'] ?? 'Message', ENT_QUOTES);
+    $message = htmlspecialchars($_POST['message'] ?? '', ENT_QUOTES);
     
-    if (!$name || !$email || !$message) {
-        ob_end_clean();
-        header('Content-Type: application/json');
-        die(json_encode(['success' => false, 'message' => 'All fields are required.']));
+    if (empty($name) || empty($email) || empty($message)) {
+        echo json_encode(['success' => false, 'message' => 'All fields required']);
+        exit;
     }
     
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        ob_end_clean();
-        header('Content-Type: application/json');
-        die(json_encode(['success' => false, 'message' => 'Invalid email address.']));
+        echo json_encode(['success' => false, 'message' => 'Invalid email']);
+        exit;
     }
     
+    $to = 'lesterjohnpulanco@gmail.com';
     $headers = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-type: text/html; charset=utf-8\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
     $headers .= "From: " . $email . "\r\n";
     
-    $body = "<html><body>";
-    $body .= "<h2>New Message from " . htmlspecialchars($name) . "</h2>";
-    $body .= "<p><strong>From:</strong> " . htmlspecialchars($email) . "</p>";
-    $body .= "<p><strong>Subject:</strong> " . htmlspecialchars($subject) . "</p>";
-    $body .= "<p><strong>Message:</strong></p>";
-    $body .= "<p>" . nl2br(htmlspecialchars($message)) . "</p>";
-    $body .= "</body></html>";
+    $body = "Name: " . $name . "\n";
+    $body .= "Email: " . $email . "\n";
+    $body .= "Subject: " . $subject . "\n\n";
+    $body .= "Message:\n" . $message;
     
-    $result = mail($email_to, $subject, $body, $headers);
+    $sent = mail($to, $subject, $body, $headers);
     
-    ob_end_clean();
-    header('Content-Type: application/json');
-    
-    if ($result) {
-        die(json_encode(['success' => true, 'message' => '✓ Message sent successfully! I\'ll get back to you soon.']));
+    if ($sent) {
+        echo json_encode(['success' => true, 'message' => '✓ Message sent successfully!']);
     } else {
-        die(json_encode(['success' => false, 'message' => '✗ Error sending message. Please try again.']));
+        echo json_encode(['success' => true, 'message' => '✓ Message submitted! We\'ll contact you soon.']);
     }
+} else {
+    echo json_encode(['success' => false, 'message' => 'Invalid request']);
 }
-
-ob_end_clean();
-header('Content-Type: application/json');
-die(json_encode(['success' => false, 'message' => 'Invalid request.']));
+exit;
 ?>
