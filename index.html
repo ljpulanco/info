@@ -933,7 +933,7 @@
                 </div>
             </div>
             <div class="hero-right">
-                <form class="contact-form" id="heroForm" method="POST" action="https://script.google.com/macros/s/AKfycbyPtqvardgfm2hT3dskgla3Izal4RvjWo7A4_Mna89t8FX8JuZyoMEPnl4UPWCT4Ik/exec">
+                <form class="contact-form" id="heroForm" method="POST" action="https://script.google.com/macros/s/AKfycbxHzhCgOrPzBW10HmA4vBke1ucFHXzQfg734nqq5e--69Ru0JR1cZH-tY7LjQQxv9Wg/exec">
                     <h3>Get In Touch</h3>
                     <div class="form-group">
                         <label for="heroName">Your Name</label>
@@ -1199,7 +1199,7 @@
             </p>
             
             <div style="max-width: 600px; margin: 0 auto;" data-animate>
-                <form class="contact-form" id="contactForm" method="POST" action="https://script.google.com/macros/s/AKfycbyPtqvardgfm2hT3dskgla3Izal4RvjWo7A4_Mna89t8FX8JuZyoMEPnl4UPWCT4Ik/exec">
+                <form class="contact-form" id="contactForm" method="POST" action="https://script.google.com/macros/s/AKfycbxHzhCgOrPzBW10HmA4vBke1ucFHXzQfg734nqq5e--69Ru0JR1cZH-tY7LjQQxv9Wg/exec">
                     <h3>Send me a message</h3>
                     <div class="form-group">
                         <label for="contactName">Your Name</label>
@@ -1361,14 +1361,14 @@
                     const data = await response.json();
 
                     statusDiv.className = 'form-message success';
-                    statusDiv.textContent = data.message;
+                    statusDiv.textContent = '✓ Thank you for reaching out! We will get back to you shortly.';
                     form.reset();
                     
                 } catch (error) {
                     statusDiv.className = 'form-message success';
-                    statusDiv.textContent = '✓ Message sent! Check your Google Sheet.';
+                    statusDiv.textContent = '✓ Thank you for reaching out! We will get back to you shortly.';
                     form.reset();
-                    console.log('Submission recorded in Google Sheets');
+                    console.log('Submission recorded');
                 } finally {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Send Message';
