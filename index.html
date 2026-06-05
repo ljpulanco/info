@@ -933,7 +933,7 @@
                 </div>
             </div>
             <div class="hero-right">
-                <form class="contact-form" id="heroForm" method="POST" action="https://script.google.com/macros/s/AKfycbxHzhCgOrPzBW10HmA4vBke1ucFHXzQfg734nqq5e--69Ru0JR1cZH-tY7LjQQxv9Wg/exec">
+                <form class="contact-form" id="heroForm">
                     <h3>Get In Touch</h3>
                     <div class="form-group">
                         <label for="heroName">Your Name</label>
@@ -1199,7 +1199,7 @@
             </p>
             
             <div style="max-width: 600px; margin: 0 auto;" data-animate>
-                <form class="contact-form" id="contactForm" method="POST" action="https://script.google.com/macros/s/AKfycbxHzhCgOrPzBW10HmA4vBke1ucFHXzQfg734nqq5e--69Ru0JR1cZH-tY7LjQQxv9Wg/exec">
+                <form class="contact-form" id="contactForm">
                     <h3>Send me a message</h3>
                     <div class="form-group">
                         <label for="contactName">Your Name</label>
@@ -1352,13 +1352,13 @@
 
                 try {
                     const formData = new FormData(form);
+                    const url = 'https://script.google.com/macros/s/AKfycbxgO2oeV7cr675wCo4xvpkjrXq43-mm6ziujF4KNb9L-_gY7O1mo_I3QkEPPI023ifM/exec';
                     
-                    const response = await fetch(form.action, {
+                    const response = await fetch(url, {
                         method: 'POST',
-                        body: formData
+                        body: formData,
+                        mode: 'no-cors'
                     });
-
-                    const data = await response.json();
 
                     statusDiv.className = 'form-message success';
                     statusDiv.textContent = '✓ Thank you for reaching out! We will get back to you shortly.';
@@ -1368,7 +1368,7 @@
                     statusDiv.className = 'form-message success';
                     statusDiv.textContent = '✓ Thank you for reaching out! We will get back to you shortly.';
                     form.reset();
-                    console.log('Submission recorded');
+                    console.log('Form submitted');
                 } finally {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Send Message';
