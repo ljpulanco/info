@@ -152,10 +152,18 @@
             height: calc(100vh - 60px);
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             overflow: hidden;
             margin-top: 60px;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
             gap: 4rem;
+            align-items: center;
+            height: 100%;
         }
 
         .hero-bg {
@@ -169,14 +177,14 @@
             position: relative;
             z-index: 1;
             flex: 1;
-            padding: 3rem 2rem 3rem 3rem;
+            padding: 2rem 0;
         }
 
         .hero-right {
             position: relative;
             z-index: 1;
             flex: 1;
-            padding: 3rem 3rem 3rem 2rem;
+            padding: 2rem 0;
         }
 
         .hero-content {
@@ -907,40 +915,42 @@
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="hero-bg"></div>
-        <div class="hero-left">
-            <div class="hero-content">
-                <h1>
-                    <span class="hero-name">Lester John Pulanco</span>
-                    <div class="gradient-overlay"></div>
-                </h1>
-                <p class="hero-subtitle">Web Developer & Creative Designer</p>
-                <p style="margin-bottom: 2rem; font-size: 1rem; max-width: 600px;">
-                    Transforming ideas into seamless digital experiences. From concept to code, I craft websites that are beautiful, functional, and aligned with your vision.
-                </p>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <a href="#portfolio" class="cta-button">View My Work</a>
-                    <a href="#contact" class="cta-button secondary">Get In Touch</a>
+        <div class="container" style="display: flex; gap: 4rem; align-items: center; width: 100%; height: 100%;">
+            <div class="hero-left">
+                <div class="hero-content">
+                    <h1>
+                        <span class="hero-name">Lester John Pulanco</span>
+                        <div class="gradient-overlay"></div>
+                    </h1>
+                    <p class="hero-subtitle">Web Developer & Creative Designer</p>
+                    <p style="margin-bottom: 2rem; font-size: 1rem; max-width: 600px;">
+                        Transforming ideas into seamless digital experiences. From concept to code, I craft websites that are beautiful, functional, and aligned with your vision.
+                    </p>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="#portfolio" class="cta-button">View My Work</a>
+                        <a href="#contact" class="cta-button secondary">Get In Touch</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="hero-right">
-            <form class="contact-form" id="heroForm" method="POST" action="send-email.php">
-                <h3>Get In Touch</h3>
-                <div class="form-group">
-                    <label for="heroName">Your Name</label>
-                    <input type="text" id="heroName" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="heroEmail">Email</label>
-                    <input type="email" id="heroEmail" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="heroMessage">Message</label>
-                    <textarea id="heroMessage" name="message" required></textarea>
-                </div>
-                <button type="submit" class="form-submit">Send Message</button>
-                <div class="form-message" id="heroMessage-status"></div>
-            </form>
+            <div class="hero-right">
+                <form class="contact-form" id="heroForm" method="POST" action="send-email.php">
+                    <h3>Get In Touch</h3>
+                    <div class="form-group">
+                        <label for="heroName">Your Name</label>
+                        <input type="text" id="heroName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="heroEmail">Email</label>
+                        <input type="email" id="heroEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="heroMessage">Message</label>
+                        <textarea id="heroMessage" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                    <div class="form-message" id="heroMessage-status"></div>
+                </form>
+            </div>
         </div>
     </section>
 
