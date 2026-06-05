@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lester John Pulanco - Web Developer & Creative Designer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ffffff;
+            --secondary: #f8f9ff;
+            --accent: #0066ff;
+            --accent-light: #e6f0ff;
+            --text-primary: #0f1419;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --success: #10b981;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav .logo {
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.05em;
+            color: var(--text-primary);
+        }
+
+        nav .links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            nav .links {
+                gap: 1rem;
+            }
+            nav a {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: calc(100vh - 60px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            margin-top: 60px;
+            gap: 4rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent-light) 0%, rgba(230, 240, 255, 0.5) 100%);
+            z-index: 0;
+        }
+
+        .hero-left {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            padding: 3rem 2rem 3rem 3rem;
+        }
+
+        .hero-right {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            padding: 3rem 3rem 3rem 2rem;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .hero-name {
+            position: relative;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            cursor: default;
+        }
+
+        .gradient-overlay {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.3), transparent);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.2);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--accent-light);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                gap: 2rem;
+                height: auto;
+                padding: 4rem 0;
+            }
+
+            .hero-left, .hero-right {
+                flex: 1;
+                width: 100%;
+            }
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.05);
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .contact-form h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--secondary);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: white;
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.2);
+        }
+
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            display: block;
+        }
+
+        .form-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+            display: block;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        section:first-of-type {
+            border-top: none;
+        }
+
+        section h2 {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+
+        section h2::before {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1290px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+        }
+
+        /* About Section */
+        .about {
+            background: var(--secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .skill-category {
+            margin-bottom: 2rem;
+        }
+
+        .skill-category h4 {
+            color: var(--accent);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: var(--accent-light);
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            background: var(--primary);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .portfolio-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.2) 0%, transparent 70%);
+            transition: all 0.4s ease;
+            opacity: 0;
+        }
+
+        .portfolio-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
+        }
+
+        .portfolio-item:hover::before {
+            opacity: 1;
+            top: -30%;
+            right: -30%;
+        }
+
+        .portfolio-item h3 {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-item-meta {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .portfolio-item-desc {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-link:hover {
+            gap: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .portfolio-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-link:hover::after {
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Design Showcase Section */
+        .design-showcase {
+            background: var(--primary);
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .showcase-item {
+            aspect-ratio: auto;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, var(--accent-light) 0%, rgba(255, 255, 255, 0.5) 100%);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .showcase-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 102, 255, 0.15);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .showcase-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
+        }
+
+        .showcase-item:hover::before {
+            opacity: 1;
+        }
+
+        .showcase-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .showcase-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .showcase-item h3 {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Behance Portfolio Grid */
+        .behance-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .behance-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #e5e7eb 0%, #f3f4f6 100%);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .behance-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
+        }
+
+        @media (max-width: 1024px) {
+            .showcase-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .behance-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .showcase-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .showcase-item {
+                aspect-ratio: auto;
+            }
+
+            .behance-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .design-cta {
+            text-align: center;
+        }
+
+        /* Experience Section */
+        .experience {
+            background: var(--secondary);
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .experience-item {
+            padding: 2rem;
+            margin-bottom: 2rem;
+            background: white;
+            border-left: 3px solid var(--accent);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+        }
+
+        .experience-item:hover {
+            border-color: var(--accent);
+            background: var(--secondary);
+            transform: translateX(8px);
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.1);
+        }
+
+        .experience-item h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-weight: 500;
+        }
+
+        .experience-desc {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-desc::before {
+            content: '✓ ';
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--secondary);
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            transition: all 0.3s ease;
+        }
+
+        .contact-item a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-alt);
+            transform: translateY(-2px);
+        }
+
+        .contact-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            background: var(--primary);
+        }
+
+        /* Animations - Scroll reveals */
+        [data-animate] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        [data-animate].visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            nav .container {
+                padding: 1rem;
+            }
+
+            nav .links {
+                gap: 1rem;
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                min-height: 80vh;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">LJP</div>
+            <ul class="links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Work</a></li>
+                <li><a href="#design">Design</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-left">
+            <div class="hero-content">
+                <h1>
+                    <span class="hero-name">Lester John Pulanco</span>
+                    <div class="gradient-overlay"></div>
+                </h1>
+                <p class="hero-subtitle">Web Developer & Creative Designer</p>
+                <p style="margin-bottom: 2rem; font-size: 1rem; max-width: 600px;">
+                    Transforming ideas into seamless digital experiences. From concept to code, I craft websites that are beautiful, functional, and aligned with your vision.
+                </p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <a href="#portfolio" class="cta-button">View My Work</a>
+                    <a href="#contact" class="cta-button secondary">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <form class="contact-form" id="heroForm" method="POST" action="send-email.php">
+                <h3>Get In Touch</h3>
+                <div class="form-group">
+                    <label for="heroName">Your Name</label>
+                    <input type="text" id="heroName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="heroEmail">Email</label>
+                    <input type="email" id="heroEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="heroMessage">Message</label>
+                    <textarea id="heroMessage" name="message" required></textarea>
+                </div>
+                <button type="submit" class="form-submit">Send Message</button>
+                <div class="form-message" id="heroMessage-status"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 data-animate>About Me</h2>
+            <div class="about-content">
+                <div class="about-text" data-animate>
+                    <p>
+                        I'm a full-stack developer and designer with a passion for creating digital solutions that blend aesthetics with functionality. With experience in web development, UI/UX design, and creative direction, I bring a holistic approach to every project.
+                    </p>
+                    <p>
+                        My journey spans from concept and design to implementation and deployment. I specialize in building responsive websites, optimizing performance, and creating memorable user experiences that drive results.
+                    </p>
+                    <div class="skill-category">
+                        <h4>Development</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag">React JS</span>
+                            <span class="skill-tag">WordPress</span>
+                            <span class="skill-tag">PHP</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">CSS/SCSS</span>
+                            <span class="skill-tag">REST APIs</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Design</h4>
+                        <div class="skill-list">
+                            <span class="skill-tag">UI/UX Design</span>
+                            <span class="skill-tag">Figma</span>
+                            <span class="skill-tag">Prototyping</span>
+                            <span class="skill-tag">Graphic Design</span>
+                            <span class="skill-tag">Branding</span>
+                            <span class="skill-tag">Photoshop</span>
+                        </div>
+                    </div>
+                </div>
+                <div data-animate style="padding: 2rem; background: rgba(6, 182, 212, 0.1); border-radius: 8px; border: 1px solid rgba(6, 182, 212, 0.2);">
+                    <h3 style="color: var(--accent); margin-bottom: 1.5rem;">Quick Facts</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div>
+                            <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.25rem;">Education</p>
+                            <p>BS Information Technology<br>Columban College, Inc. (2014-2018)</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.25rem;">Location</p>
+                            <p>San Juan City, NCR, Philippines</p>
+                        </div>
+                        <div>
+                            <p style="color: var(--accent); font-weight: 600; margin-bottom: 0.25rem;">Currently</p>
+                            <p>Senior Web Developer @ LEADAIO</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 data-animate>Live Portfolios</h2>
+            <p data-animate style="margin-bottom: 3rem; max-width: 600px;">
+                A selection of websites and projects I've built. Each project demonstrates my approach to clean code, modern design, and user-focused development.
+            </p>
+            
+            <div class="portfolio-grid">
+                <article class="portfolio-item" data-animate>
+                    <h3>Project Name</h3>
+                    <div class="portfolio-item-meta">
+                        <span>Web Design</span>
+                        <span>2025</span>
+                    </div>
+                    <p class="portfolio-item-desc">
+                        A modern, responsive website built with clean code and optimized for performance.
+                    </p>
+                    <a href="https://your-project-url.com" class="portfolio-link" target="_blank">View Project</a>
+                </article>
+
+                <article class="portfolio-item" data-animate>
+                    <h3>Project Name</h3>
+                    <div class="portfolio-item-meta">
+                        <span>WordPress</span>
+                        <span>2024</span>
+                    </div>
+                    <p class="portfolio-item-desc">
+                        Custom WordPress site with optimized theme and performance enhancements.
+                    </p>
+                    <a href="https://your-project-url.com" class="portfolio-link" target="_blank">View Project</a>
+                </article>
+
+                <article class="portfolio-item" data-animate>
+                    <h3>Project Name</h3>
+                    <div class="portfolio-item-meta">
+                        <span>React App</span>
+                        <span>2024</span>
+                    </div>
+                    <p class="portfolio-item-desc">
+                        Interactive React application with modern UI and smooth user interactions.
+                    </p>
+                    <a href="https://your-project-url.com" class="portfolio-link" target="_blank">View Project</a>
+                </article>
+
+                <article class="portfolio-item" data-animate>
+                    <h3>Project Name</h3>
+                    <div class="portfolio-item-meta">
+                        <span>E-commerce</span>
+                        <span>2024</span>
+                    </div>
+                    <p class="portfolio-item-desc">
+                        Full-featured e-commerce site built on Shopify with custom theme development.
+                    </p>
+                    <a href="https://your-project-url.com" class="portfolio-link" target="_blank">View Project</a>
+                </article>
+            </div>
+
+            <div style="text-align: center;">
+                <p data-animate style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                    Explore all my live projects and portfolio pieces at my Notion workspace
+                </p>
+                <a href="https://lesterpulanco.notion.site/Live-Portfolios-with-links-Lester-John-Pulanco-29289799eed78070966fff2867e63766" 
+                   class="cta-button" target="_blank" data-animate>
+                    View All Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Design Showcase Section -->
+    <section class="design-showcase" id="design">
+        <div class="container">
+            <h2 data-animate>Design & Creative Work</h2>
+            <div class="showcase-grid">
+                <div class="showcase-item" data-animate>
+                    <div class="showcase-content">
+                        <div class="showcase-icon">🎨</div>
+                        <h3>UI/UX Design</h3>
+                    </div>
+                </div>
+                <div class="showcase-item" data-animate>
+                    <div class="showcase-content">
+                        <div class="showcase-icon">🎭</div>
+                        <h3>Branding</h3>
+                    </div>
+                </div>
+                <div class="showcase-item" data-animate>
+                    <div class="showcase-content">
+                        <div class="showcase-icon">✏️</div>
+                        <h3>Graphic Design</h3>
+                    </div>
+                </div>
+                <div class="showcase-item" data-animate>
+                    <div class="showcase-content">
+                        <div class="showcase-icon">🎬</div>
+                        <h3>Visual Content</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Behance Portfolio Grid -->
+            <div class="behance-grid" data-animate>
+                <div class="behance-item">
+                    <span>Project 1</span>
+                </div>
+                <div class="behance-item">
+                    <span>Project 2</span>
+                </div>
+                <div class="behance-item">
+                    <span>Project 3</span>
+                </div>
+                <div class="behance-item">
+                    <span>Project 4</span>
+                </div>
+                <div class="behance-item">
+                    <span>Project 5</span>
+                </div>
+                <div class="behance-item">
+                    <span>Project 6</span>
+                </div>
+                <div class="behance-item">
+                    <span>Project 7</span>
+                </div>
+                <div class="behance-item">
+                    <span>Project 8</span>
+                </div>
+            </div>
+
+            <div class="design-cta" style="margin-top: 3rem;">
+                <p data-animate style="margin-bottom: 1.5rem;">
+                    Browse my complete design portfolio and creative projects
+                </p>
+                <a href="https://www.behance.net/your-username" 
+                   class="cta-button" target="_blank" data-animate>
+                    See More on Behance
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <h2 data-animate>Experience</h2>
+            <div class="experience-timeline">
+                <article class="experience-item" data-animate>
+                    <h3>Senior Web Developer</h3>
+                    <div class="experience-meta">
+                        <span>LEADAIO</span>
+                        <span>2025 - Present</span>
+                    </div>
+                    <p class="experience-desc">Owned full WordPress project lifecycle from development to deployment</p>
+                    <p class="experience-desc">Built optimized custom themes and plugins with focus on performance</p>
+                </article>
+
+                <article class="experience-item" data-animate>
+                    <h3>Creative Designer</h3>
+                    <div class="experience-meta">
+                        <span>COMBO INTERACTIVE</span>
+                        <span>2025</span>
+                    </div>
+                    <p class="experience-desc">Designed key visuals and marketing assets for digital campaigns</p>
+                    <p class="experience-desc">Collaborated with teams on promotional brand initiatives</p>
+                </article>
+
+                <article class="experience-item" data-animate>
+                    <h3>Front-end Developer</h3>
+                    <div class="experience-meta">
+                        <span>YLOPO LLC</span>
+                        <span>2022 - 2025</span>
+                    </div>
+                    <p class="experience-desc">Converted Figma designs into responsive Squarespace builds</p>
+                    <p class="experience-desc">Maintained and optimized client websites for consistency</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 data-animate>Let's Work Together</h2>
+            <p data-animate style="max-width: 600px; margin: 1rem auto 3rem; color: var(--text-secondary);">
+                Whether you're looking to build a new website, enhance your digital presence, or bring a design vision to life, I'd love to help. Reach out and let's create something amazing together.
+            </p>
+            
+            <div style="max-width: 600px; margin: 0 auto;" data-animate>
+                <form class="contact-form" id="contactForm" method="POST" action="send-email.php">
+                    <h3>Send me a message</h3>
+                    <div class="form-group">
+                        <label for="contactName">Your Name</label>
+                        <input type="text" id="contactName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactSubject">Subject</label>
+                        <input type="text" id="contactSubject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <textarea id="contactMessage" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Send Message</button>
+                    <div class="form-message" id="contactMessage-status"></div>
+                </form>
+            </div>
+
+            <div class="contact-info" data-animate style="margin-top: 4rem;">
+                <div class="contact-item">
+                    <span class="contact-label">Email</span>
+                    <a href="mailto:lesterjohnpulanco@gmail.com">lesterjohnpulanco@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Phone</span>
+                    <a href="tel:+639465612291">+63 946 561 2291</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-label">Location</span>
+                    <p style="margin: 0;">San Juan City, NCR</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Lester John Pulanco. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Get hero section element
+        const heroSection = document.getElementById('hero');
+
+        // Gradient Follow Effect on Hero Name
+        const heroName = document.querySelector('.hero-name');
+        const gradientOverlay = document.querySelector('.gradient-overlay');
+
+        if (heroName && gradientOverlay && heroSection) {
+            document.addEventListener('mousemove', (e) => {
+                const rect = heroSection.getBoundingClientRect();
+                
+                // Calculate position relative to hero section
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Update gradient position
+                gradientOverlay.style.left = (x - 150) + 'px';
+                gradientOverlay.style.top = (y - 150) + 'px';
+                gradientOverlay.style.opacity = '1';
+            });
+
+            heroSection.addEventListener('mouseleave', () => {
+                gradientOverlay.style.opacity = '0';
+            });
+        }
+
+        // Custom Parallax effect
+        const heroBg = document.querySelector('.hero-bg');
+        
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.pageYOffset;
+            if (heroBg) {
+                heroBg.style.transform = `translateY(${scrollPos * 0.5}px)`;
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[data-animate]').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active nav link
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.style.color = 'var(--accent)';
+                }
+            });
+        });
+
+        // Form Handling with PHP Backend
+        const handleFormSubmit = async (formId, statusId) => {
+            const form = document.getElementById(formId);
+            if (!form) return;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const statusDiv = document.getElementById(statusId);
+                const submitBtn = form.querySelector('.form-submit');
+                
+                // Disable submit button
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch('send-email.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        statusDiv.className = 'form-message success';
+                        statusDiv.textContent = data.message;
+                        form.reset();
+                    } else {
+                        throw new Error(data.message || 'Form submission failed');
+                    }
+                } catch (error) {
+                    statusDiv.className = 'form-message error';
+                    statusDiv.textContent = '✗ ' + (error.message || 'Error sending message. Please try again.');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                }
+            });
+        };
+
+        // Initialize forms
+        handleFormSubmit('heroForm', 'heroMessage-status');
+        handleFormSubmit('contactForm', 'contactMessage-status');
+    </script>
+</body>
+</html>
