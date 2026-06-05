@@ -1336,7 +1336,7 @@
             });
         });
 
-        // Form Handling with PHP Backend
+        // Form Handling
         const handleFormSubmit = async (formId, statusId) => {
             const form = document.getElementById(formId);
             if (!form) return;
@@ -1346,30 +1346,30 @@
                 const statusDiv = document.getElementById(statusId);
                 const submitBtn = form.querySelector('.form-submit');
                 
-                // Disable submit button
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Sending...';
-
-                const formData = new FormData(form);
+                statusDiv.textContent = '';
 
                 try {
                     const response = await fetch('send-email.php', {
                         method: 'POST',
-                        body: formData
+                        body: new FormData(form)
                     });
 
                     const data = await response.json();
 
-                    if (response.ok) {
+                    if (data.success) {
                         statusDiv.className = 'form-message success';
                         statusDiv.textContent = data.message;
                         form.reset();
                     } else {
-                        throw new Error(data.message || 'Form submission failed');
+                        statusDiv.className = 'form-message error';
+                        statusDiv.textContent = '✗ ' + data.message;
                     }
                 } catch (error) {
                     statusDiv.className = 'form-message error';
-                    statusDiv.textContent = '✗ ' + (error.message || 'Error sending message. Please try again.');
+                    statusDiv.textContent = '✗ Error sending message. Please try again.';
+                    console.error('Error:', error);
                 } finally {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Send Message';
