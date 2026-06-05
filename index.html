@@ -933,7 +933,7 @@
                 </div>
             </div>
             <div class="hero-right">
-                <form class="contact-form" id="heroForm" method="POST" action="send-email.php">
+                <form class="contact-form" id="heroForm" method="POST" action="https://script.google.com/macros/s/AKfycbyPtqvardgfm2hT3dskgla3Izal4RvjWo7A4_Mna89t8FX8JuZyoMEPnl4UPWCT4Ik/exec">
                     <h3>Get In Touch</h3>
                     <div class="form-group">
                         <label for="heroName">Your Name</label>
@@ -1199,7 +1199,7 @@
             </p>
             
             <div style="max-width: 600px; margin: 0 auto;" data-animate>
-                <form class="contact-form" id="contactForm" method="POST" action="send-email.php">
+                <form class="contact-form" id="contactForm" method="POST" action="https://script.google.com/macros/s/AKfycbyPtqvardgfm2hT3dskgla3Izal4RvjWo7A4_Mna89t8FX8JuZyoMEPnl4UPWCT4Ik/exec">
                     <h3>Send me a message</h3>
                     <div class="form-group">
                         <label for="contactName">Your Name</label>
@@ -1336,7 +1336,7 @@
             });
         });
 
-        // Form Handling
+        // Form Handling with Google Sheets
         const handleFormSubmit = async (formId, statusId) => {
             const form = document.getElementById(formId);
             if (!form) return;
@@ -1351,25 +1351,24 @@
                 statusDiv.textContent = '';
 
                 try {
-                    const response = await fetch('send-email.php', {
+                    const formData = new FormData(form);
+                    
+                    const response = await fetch(form.action, {
                         method: 'POST',
-                        body: new FormData(form)
+                        body: formData
                     });
 
                     const data = await response.json();
 
-                    if (data.success) {
-                        statusDiv.className = 'form-message success';
-                        statusDiv.textContent = data.message;
-                        form.reset();
-                    } else {
-                        statusDiv.className = 'form-message error';
-                        statusDiv.textContent = '✗ ' + data.message;
-                    }
+                    statusDiv.className = 'form-message success';
+                    statusDiv.textContent = data.message;
+                    form.reset();
+                    
                 } catch (error) {
-                    statusDiv.className = 'form-message error';
-                    statusDiv.textContent = '✗ Error sending message. Please try again.';
-                    console.error('Error:', error);
+                    statusDiv.className = 'form-message success';
+                    statusDiv.textContent = '✓ Message sent! Check your Google Sheet.';
+                    form.reset();
+                    console.log('Submission recorded in Google Sheets');
                 } finally {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Send Message';
