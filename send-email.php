@@ -1,10 +1,9 @@
 <?php
-// Enable error reporting for development
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
+// Start output buffering to prevent any accidental output
+ob_start();
 
-// Set JSON response header
-header('Content-Type: application/json');
+// Set JSON response header FIRST before any output
+header('Content-Type: application/json; charset=UTF-8');
 
 // Your email address
 $recipient_email = 'lesterjohnpulanco@gmail.com';
@@ -37,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // If there are validation errors, return them
     if (!empty($errors)) {
+        ob_end_clean();
         http_response_code(400);
         echo json_encode([
             'success' => false,
@@ -54,8 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Prepare email headers
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
-    $headers .= "From: " . filter_var($email, FILTER_SANITIZE_EMAIL) . "\r\n";
-    $headers .= "Reply-To: " . filter_var($email, FILTER_SANITIZE_EMAIL) . "\r\n";
+    $headers .= "From: " . $email . "\r\n";
+    $headers .= "Reply-To: " . $email . "\r\n";
+    
+    // Prepare email subject
+    $email_subject = "New Portfolio Contact: " . $subject;
     
     // Prepare email body
     $email_body = "
@@ -141,7 +144,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ";
     
     // Send email
-    $mail_sent = mail($recipient_email, $subject, $email_body, $headers);
+    $mail_sent = @mail($recipient_email, $email_subject, $email_body, $headers);
+    
+    // Clear output buffer
+    ob_end_clean();
     
     if ($mail_sent) {
         http_response_code(200);
@@ -159,7 +165,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// If not a POST request, return error
+// If not a POST request, clear buffer and return error
+ob_end_clean();
 http_response_code(405);
 echo json_encode([
     'success' => false,
